@@ -99,8 +99,6 @@ function call_wps(approach) {
     var biking_time_period;
     var walking_time_period;
     var walking_speed;
-    var bus_waiting_time;
-    var bus_riding_time;
     var walking_start_time;
     var walking_speed_amount;
     var params;
@@ -167,10 +165,7 @@ function call_wps(approach) {
                     walking_speed = 1.67;
                     break;
             }
-            // bus_waiting_time = $('#bus_waiting_time_amount_transit').val();
-            // bus_riding_time = $('#bus_riding_time_amount_transit').val();
             walking_start_time = $('#walking_start_time').val() + ":00";
-            // wps_call = "call_wps.php?wps=transit&start_point=" + start_point + "&walking_start_time=" + walking_start_time + "&walking_time_period=" + walking_time_period + "&walking_speed=" + walking_speed + "&bus_waiting_time=" + bus_waiting_time + "&bus_riding_time=" + bus_riding_time;
             params = "origin=" + start_point + "&threshold=" + walking_time_period + "&walking_speed=" + walking_speed + "&mode=WALK,TRANSIT";
             break;
     }
@@ -199,28 +194,12 @@ function call_wps(approach) {
         },
         success: function(data, status) {
             var results = data.features[0]
-            console.log(results)
-            // if (walkshed != 'NULL') {
-            // var poi_data = wps_results['poi'];
-            // var shed_type;
-            // var area;
-            var poi_score;
-            var color;
+            var poi_data = data.features[1]
+            var poi_score = results.properties.score;
+            var color = results.properties.color;
+            var crime_index = results.properties.crime_index;
             var geojson_overlay;
-            var crime_index;
 
-            // if (walkshed['features']) {
-            //     shed_type = walkshed['features'][0]['properties']['type'];
-            //     color = walkshed['features'][0]['properties']['color'];
-            //     area = walkshed['features'][0]['properties']['area'];
-            //     poi_score = walkshed['features'][0]['properties']['score'];
-            //     crime_index = walkshed['features'][0]['properties']['crime_index'];
-            // } else {
-            color = results.properties.color;
-            // area = walkshed['properties']['area'];
-            poi_score = results.properties.score;
-            crime_index = results.properties.crime_index;
-            // }
             var shed_style = {
                 "color": color,
                 "weight": 5,
@@ -262,37 +241,37 @@ function call_wps(approach) {
             marker.bindPopup('<div>Score:</div><br><div style="font-size: 36px; margin-top: -20px; margin-bottom: -5px; color: ' + poi_score_color + '"><b>' + poi_score + '</b></div>').openPopup();
 
             //overlay poi data
-            // if (poi_data_overlay != null) {
-            //     map.removeLayer(poi_data_overlay);
-            //     poi_data_overlay = null;
-            // }
+            if (poi_data_overlay != null) {
+                map.removeLayer(poi_data_overlay);
+                poi_data_overlay = null;
+            }
 
             //overlay poi panel
-            // poi_panel.addTo(map);
+            poi_panel.addTo(map);
 
-            // if (poi_data != 'NULL') {
-            //     $('#poi_data_check').removeAttr("disabled");
-            //     $('#poi_data_text').css("font-style", "normal");
-            //     $('#poi_data_text').css("color", "#333333");
-            //     $('#poi_data_check').click(function() {
-            //         if ($(this).is(':checked')) {
-            //             if (poi_data_overlay == null) {
-            //                 if (poi_data != 'NULL') {
-            //                     poi_data_overlay = show_poi_data(poi_data);
-            //                     map.addLayer(poi_data_overlay);
-            //                     map.fitBounds(poi_data_overlay.getBounds());
-            //                 }
-            //             }
-            //         } else {
-            //             map.removeLayer(poi_data_overlay);
-            //             poi_data_overlay = null;
-            //         }
-            //     });
-            // } else {
-            //     $('#poi_data_check').attr("disabled", true);
-            //     $('#poi_data_text').css("font-style", "italic");
-            //     $('#poi_data_text').css("color", "#a0a3a0");
-            // }
+            if (poi_data.features.length > 0) {
+                $('#poi_data_check').removeAttr("disabled");
+                $('#poi_data_text').css("font-style", "normal");
+                $('#poi_data_text').css("color", "#333333");
+                $('#poi_data_check').click(function() {
+                    if ($(this).is(':checked')) {
+                        if (poi_data_overlay == null) {
+                            if (poi_data != 'NULL') {
+                                poi_data_overlay = show_poi_data(poi_data);
+                                map.addLayer(poi_data_overlay);
+                                map.fitBounds(poi_data_overlay.getBounds());
+                            }
+                        }
+                    } else {
+                        map.removeLayer(poi_data_overlay);
+                        poi_data_overlay = null;
+                    }
+                });
+            } else {
+                $('#poi_data_check').attr("disabled", true);
+                $('#poi_data_text').css("font-style", "italic");
+                $('#poi_data_text').css("color", "#a0a3a0");
+            }
 
             var walkshed_bound = geojson_overlay.getBounds();
             map.fitBounds(walkshed_bound);
@@ -339,7 +318,7 @@ function show_poi_data(poi_data) {
 function setGeoJsonFeatureIcon(feature, layer) {
     if (feature.properties && feature.properties.icon) {
         layer.setIcon(new L.Icon({
-            iconUrl: feature.properties.icon,
+            iconUrl: encodeURI(`data:image/svg+xml,${feature.properties.icon}`).replace('#','%23'),
             iconAnchor: [10, 0], // point of the icon which will correspond to marker's location
             popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
         }));
@@ -410,28 +389,6 @@ $("#walking_speed_transit").slider({
     }
 });
 $("#walking_speed_amount_transit").val($("#walking_speed_transit").slider("value"));
-
-$("#bus_waiting_time_transit").slider({
-    value: 10,
-    min: 0,
-    max: 10,
-    step: 1,
-    slide: function(event, ui) {
-        $("#bus_waiting_time_amount_transit").val(ui.value);
-    }
-});
-$("#bus_waiting_time_amount_transit").val($("#bus_waiting_time_transit").slider("value"));
-
-$("#bus_riding_time_transit").slider({
-    value: 5,
-    min: 0,
-    max: 10,
-    step: 1,
-    slide: function(event, ui) {
-        $("#bus_riding_time_amount_transit").val(ui.value);
-    }
-});
-$("#bus_riding_time_amount_transit").val($("#bus_riding_time_transit").slider("value"));
 
 ////////////////////////////// Slider setting - END //////////////////////////////////////////////////////////////////
 
