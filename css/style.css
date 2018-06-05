@@ -1,0 +1,267 @@
+body {
+    font-family: arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    font-size: .95em;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    /*background: #F6F4F0;*/
+    color: #635B53 !important;
+}
+
+#map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+a {
+    color: #8DC63F;
+}
+
+.sidebar-pane ul {
+    margin: 2px 0 10px 0;
+    padding: 0;
+}
+
+.sidebar-pane ul li {
+    margin: 0 0 10px 0;
+    list-style: none;
+    width: 220px;
+}
+
+fieldset {
+    border: 0;
+}
+
+.sidebar-pane .button {
+    display: inline-block;
+    margin: 10px auto auto 5px;
+    padding: 5px 15px 5px 15px;
+    background-color: #8DC63F;
+    border: none;
+    color: #fff;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    font-size: 1em;
+
+}
+
+.sidebar-pane .button:hover {
+    background-color: #008E00;
+    cursor: pointer;
+}
+
+.sidebar-pane select, #sidebar-pane input {
+    font-family: arial, sans-serif;
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    color: #635B53;
+}
+
+.ui-slider .ui-slider-handle {
+    width: 22px;
+    height: 12px;
+    margin-left: -15px;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    border: 1px solid #8DC63F;
+    background: #8DC63F;
+    color: #ffffff !important;
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+    background: #8DC63F;
+    color: #ffffff !important;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+    color: #8DC63F;
+}
+
+.ui-state-active .ui-icon {
+    background-image: url(images/ui-icons_ffffff_256x240.png);
+}
+
+.unit_label {
+    display: inline-block;
+    font-size: 12px;
+}
+
+/****************************** Legend - START *********************************************************************/
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: .7;
+}
+
+.info {
+    padding: 6px 8px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+}
+
+div#accessibility_legend .bullet {
+    font: 10px sans-serif;
+}
+
+div#accessibility_legend .bullet .marker {
+    stroke: #404040;
+    stroke-width: 4px;
+}
+
+div#accessibility_legend .bullet .tick line {
+    stroke: #666;
+    stroke-width: .5px;
+}
+
+div#accessibility_legend .bullet .range.s0 {
+    fill: #1A9641;
+}
+
+div#accessibility_legend .bullet .range.s1 {
+    fill: #A6D96A;
+}
+
+div#accessibility_legend .bullet .range.s2 {
+    fill: #FFFFBF;
+}
+
+div#accessibility_legend .bullet .range.s3 {
+    fill: #FDAE61;
+}
+
+div#accessibility_legend .bullet .range.s4 {
+    fill: #D7191C;
+}
+
+div#accessibility_legend .bullet .measure.s0 {
+    fill: #404040;
+}
+
+div#accessibility_legend .bullet .title {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+div#accessibility_legend .bullet .subtitle {
+    fill: #999;
+}
+
+div#crime_legend .bullet {
+    font: 10px sans-serif;
+}
+
+div#crime_legend .bullet .marker {
+    stroke: #404040;
+    stroke-width: 4px;
+}
+
+div#crime_legend .bullet .tick line {
+    stroke: #666;
+    stroke-width: .5px;
+}
+
+div#crime_legend .bullet .range.s0 {
+    fill: #ED1C24;
+}
+
+div#crime_legend .bullet .range.s1 {
+    fill: #F7941E;
+}
+
+div#crime_legend .bullet .range.s2 {
+    fill: #FFF200;
+}
+
+div#crime_legend .bullet .range.s3 {
+    fill: #8DC63F;
+}
+
+div#crime_legend .bullet .range.s4 {
+    fill: #39B54A;
+}
+
+div#crime_legend .bullet .measure.s0 {
+    fill: #404040;
+}
+
+div#crime_legend .bullet .title {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+div#crime_legend .bullet .subtitle {
+    fill: #999;
+}
+
+/********************************************************************************************************************/
+
+.leaflet-popup-content-wrapper {
+    padding: 1px;
+    text-align: center;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.leaflet-popup-content {
+    margin: 15px 10px 15px 10px;
+    line-height: 1.4;
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: #ffffff;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    display: none;
+}
+
+
+/***************************************** Responsive Design ***********************************************************/
+
+
+@media screen and (max-width: 960px) {
+    .leaflet-center {
+        width: 192px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .leaflet-control-geosearch {
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .leaflet-control-layers {
+        visibility: hidden;
+    }
+
+    .leaflet-control-zoom {
+        visibility: hidden;
+    }
+}
