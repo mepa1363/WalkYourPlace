@@ -172,7 +172,7 @@ function call_wps(approach) {
 
 
     $.ajax({
-        url: "http://localhost:3000/api/score?" + params,
+        url: "http://18.237.188.10/api/score?" + params,
         beforeSend: function(xhr) {
             if (checkBoundary(start_point)) {
                 $.blockUI({
