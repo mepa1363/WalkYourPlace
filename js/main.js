@@ -172,7 +172,7 @@ function call_wps(approach) {
 
 
     $.ajax({
-        url: "http://18.237.188.10/api/score?" + params,
+        url: "https://walkyourplace.townshipcanada.com/api/score?" + params,
         beforeSend: function(xhr) {
             if (checkBoundary(start_point)) {
                 $.blockUI({
